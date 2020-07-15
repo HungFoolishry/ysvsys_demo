@@ -1,4 +1,4 @@
-package JUC;
+package JUC.BaseStruct;
 
 /**
  * description:

@@ -1,4 +1,4 @@
-package JUC;
+package JUC.BaseStruct;
 
 /**
  * description: AtomicLongFieldUpdater可以对指定"类的 'volatile long'类型的成员"进行原子更新。它是基于反射原理实现的。
