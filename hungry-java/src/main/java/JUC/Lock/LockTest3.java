@@ -6,6 +6,7 @@ package JUC.Lock;
  * @author JunchaoYao
  * @date 2020-07-14 15:26
  **/
+import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.Condition;
@@ -120,6 +121,8 @@ class Test3Customer {
     }
 }
 
+
+
 public class LockTest3 {
     public static void main(String[] args) {
         Test3Depot mTest3Depot = new Test3Depot(100);
@@ -131,5 +134,15 @@ public class LockTest3 {
         mCus.consume(90);
         mCus.consume(150);
         mPro.produce(110);
+        acquireQueued(2);
+    }
+    private static int acquireQueued(int arg) {
+        for (;;) {
+            System.out.println(arg);
+            arg = arg + 1;
+            if (20 == arg) {
+                return arg;
+            }
+        }
     }
 }
