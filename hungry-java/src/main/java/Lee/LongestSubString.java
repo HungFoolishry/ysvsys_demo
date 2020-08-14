@@ -19,7 +19,7 @@ public class LongestSubString {
         for (end = 0; end < n; end++) {
             Character endChar = s.charAt(end);
             if (map.containsKey(endChar)) {
-                start = Math.max(map.get(endChar) + 1, start);
+                start = Math.max(map.get(endChar) + 1, start); //此行是关键，取重复历史的key的下标与本次的start下标比，start取最大结果，保证了start必须增加，不能后退
             }
             map.put(endChar, end);
             max = Math.max(max, end - start + 1);
