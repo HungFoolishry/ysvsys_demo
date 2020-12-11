@@ -46,6 +46,9 @@ public class ReorderList {
             if (tmp == topNode) {
                 break;
             }
+
+
+
             topNode = nodeList.pop();
         }
         tmpNode.next = null;
