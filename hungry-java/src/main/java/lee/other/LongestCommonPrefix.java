@@ -14,6 +14,7 @@ public class LongestCommonPrefix {
             if (strs ==null || strs.length == 0) {
                 return "";
             }
+            // TODO 如何在reduce中提早break
             return Arrays.stream(strs).reduce(strs[0], this::compareAndGetPrefix);
         }
 
