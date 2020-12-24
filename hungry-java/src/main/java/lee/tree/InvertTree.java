@@ -8,7 +8,6 @@ package lee.tree;
  **/
 public class InvertTree {
 
-}
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -18,7 +17,7 @@ public class InvertTree {
  *     TreeNode(int x) { val = x; }
  * }
  */
-class Solution {
+static class Solution {
     static class TreeNode{
         int val;
         TreeNode left;
@@ -43,3 +42,5 @@ class Solution {
 
 
 }
+}
+
