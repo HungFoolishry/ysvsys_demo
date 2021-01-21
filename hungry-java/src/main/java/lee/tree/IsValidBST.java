@@ -22,24 +22,48 @@ public class IsValidBST {
     }
 
     class Solution {
-        long pre = Long.MIN_VALUE;
         public boolean isValidBST(TreeNode root) {
-            return check(root);
-
+            return isValidBST(root, null, null);
         }
 
-        private boolean check(TreeNode root) {
+        private boolean isValidBST(TreeNode root, TreeNode min, TreeNode max) {
             if (root == null) {
                 return true;
             }
-            if (!check(root.left)) {
-                return false;
+            if (min != null) {
+                if ( root.val <= min.val) {
+                    return false;
+                }
             }
-            if (root.val <= pre) {
-                return false;
+            if (max != null) {
+                if ( root.val >= max.val) {
+                    return false;
+                }
             }
-            pre = root.val;
-            return check(root.right);
+            return isValidBST(root.left, min, root) && isValidBST(root.right, root, max);
         }
-    }
+        }
+
+
+//    class Solution {
+//        long pre = Long.MIN_VALUE;
+//        public boolean isValidBST(TreeNode root) {
+//            return check(root);
+//
+//        }
+//
+//        private boolean check(TreeNode root) {
+//            if (root == null) {
+//                return true;
+//            }
+//            if (!check(root.left)) {
+//                return false;
+//            }
+//            if (root.val <= pre) {
+//                return false;
+//            }
+//            pre = root.val;
+//            return check(root.right);
+//        }
+//    }
 }

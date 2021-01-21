@@ -119,10 +119,6 @@ public class LRUCache {
             return first;
         }
 
-        public int size() {
-            return size;
-
-        }
     }
 
 }
