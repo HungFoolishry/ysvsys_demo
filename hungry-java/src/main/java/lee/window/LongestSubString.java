@@ -1,4 +1,4 @@
-package lee.stralgorithm;
+package lee.window;
 
 import java.util.HashMap;
 import java.util.Map;
