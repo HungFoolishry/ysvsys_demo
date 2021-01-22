@@ -41,6 +41,7 @@ public class BinarySearch {
             }
         }
         // 最后要检查 left 越界的情况 在所有数值<target, left= length+1 / 在所有数值>target,left = right = 0
+        // 在right 没有移动的情况下，left=len-1 +1，溢出了数组的下标
         if (left >= nums.length || nums[left] != target) {
             return -1;
         }
@@ -61,6 +62,7 @@ public class BinarySearch {
             }
         }
         // 最后要检查 right 越界的情况, 在所有数值< target, left=right = len-1/all >target, right=left-1=-1
+        // 因为是右边界，所以返回right。在left没有移动的情况下，跳出循环的时候right = left-1 = -1，会溢出，所以必须判断
         if (right < 0 || nums[right] != target)
             return -1;
         return right;
