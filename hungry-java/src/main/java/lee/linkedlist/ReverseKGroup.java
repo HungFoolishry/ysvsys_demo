@@ -2,7 +2,7 @@ package lee.linkedlist;
 
 /**
  * description: K个一组反转链表
- *
+ * 时间复杂度：O(n)
  * @author JunchaoYao
  * @date 2020-11-02 16:31
  **/
@@ -16,6 +16,7 @@ public class ReverseKGroup {
         }
     }
     class Solution {
+        // 返回已经反转好的group的头节点
         public ListNode reverseKGroup(ListNode head, int k) {
             ListNode a = head;
             ListNode b = head;
@@ -25,8 +26,9 @@ public class ReverseKGroup {
                 }
                 b = b.next;
             }
+            //反转每个group中的节点 并且返回头节点
             ListNode newHead = reverseAb(a, b);
-            // a   nH            K
+            // a   nH            K return
             // -1<-2 null<-3<-4<-5
             a.next = reverseKGroup(b, k);
             return newHead;
