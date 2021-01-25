@@ -17,6 +17,33 @@ public class BuildTree {
         TreeNode right;
         TreeNode(int x) { val = x; }
     }
+    class Solution {
+        public TreeNode buildTree(int[] preorder, int[] inorder) {
+            return build(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
+
+        }
+
+        public TreeNode build(int[] preorder, int pStart, int pEnd, int[] inorder, int iStart, int iEnd) {
+            if (pEnd < pStart || iEnd < iStart) {
+                return null;
+            }
+            TreeNode root = new TreeNode(preorder[pStart]);
+            int rootIndexInOrder =0;
+            for (int i = iStart; i <= iEnd; i++) {
+                if (root.val == inorder[i]) {
+                    rootIndexInOrder = i;
+                    break;
+                }
+
+            }
+            int leftSize = rootIndexInOrder - iStart;
+            root.left = build(preorder, pStart + 1, pStart + leftSize, inorder, iStart, rootIndexInOrder - 1);
+            root.right = build(preorder, pStart + leftSize+1, pEnd, inorder, rootIndexInOrder + 1, iEnd);
+            return root;
+
+
+        }
+    }
 
 //    class Solution {
 //        public TreeNode buildTree(int[] preorder, int[] inorder) {

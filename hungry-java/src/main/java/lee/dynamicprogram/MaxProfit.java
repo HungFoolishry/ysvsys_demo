@@ -1,4 +1,4 @@
-package lee.other;
+package lee.dynamicprogram;
 
 /**
  * description: 股票最大利润

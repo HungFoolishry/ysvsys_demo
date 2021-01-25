@@ -6,7 +6,7 @@ package lee.tree;
  * @author JunchaoYao
  * @date 2021-01-25 00:15
  **/
-public class flatten {
+public class Flatten {
 
     public class TreeNode {
         int val;
@@ -32,7 +32,7 @@ public class flatten {
             TreeNode right = root.right;
             root.left = null;
             root.right = left;
-            TreeNode cur = root;;
+            TreeNode cur = root;
             while (cur.right != null) {
                 cur = cur.right;
 

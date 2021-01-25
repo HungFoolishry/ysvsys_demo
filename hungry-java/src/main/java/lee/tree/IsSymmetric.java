@@ -21,49 +21,22 @@ public class IsSymmetric {
     class Solution {
         public boolean isSymmetric(TreeNode root) {
             return check(root, root);
-
         }
 
-        private boolean check(TreeNode p, TreeNode q) {
-            if (p == null && q == null) {
+        public boolean check(TreeNode left, TreeNode right) {
+            if (left == null &&  right == null) {
                 return true;
+
             }
-            if (p == null || q == null) {
+            if (left == null || right == null) {
                 return false;
             }
-            if (p.val == q.val) {
-                return check(p.left, q.right) && check(p.right, q.left);
+            if (left.val == right.val) {
+                return check(right.left, left.right) && check(left.left, right.right);
             }
             return false;
         }
-    }
-//    class Solution {
-//        public boolean isSymmetric(TreeNode root) {
-//            return check(root, root);
-//        }
-//
-//        public boolean check(TreeNode u, TreeNode v) {
-//            Queue<TreeNode> q = new LinkedList<TreeNode>();
-//            q.offer(u);
-//            q.offer(v);
-//            while (!q.isEmpty()) {
-//                u = q.poll();
-//                v = q.poll();
-//                if (u == null && v == null) {
-//                    continue;
-//                }
-//                if ((u == null || v == null) || (u.val != v.val)) {
-//                    return false;
-//                }
-//
-//                q.offer(u.left);
-//                q.offer(v.right);
-//
-//                q.offer(u.right);
-//                q.offer(v.left);
-//            }
-//            return true;
-//        }
-//    }
+
+   }
 
 }
