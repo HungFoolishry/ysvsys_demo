@@ -1,7 +1,14 @@
 package lee.tree;
 
+import com.sun.org.apache.bcel.internal.generic.INEG;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+
 /**
- * description: 二叉树最近公共祖先
+ * description: 236kthSmallest 二叉树最近公共祖先
  *
  * @author JunchaoYao
  * @date 2020-09-29 19:21
@@ -23,36 +30,35 @@ public class PublicAncestor {
 
 
     class Solution {
-        TreeNode ans;
-        public Solution() {
-            this.ans = null;
-        }
-
-
-        public boolean dfs(TreeNode root, TreeNode p, TreeNode q) {
-            if (root == null) {
-                return false;
-            }
-            if (root.val == p.val || root.val == q.val) {
-                return true;
-            }
-            boolean lson = dfs(root.left, p, q);
-            boolean rson = dfs(root.right, p, q);
-            if ((lson && rson) || ((root.val == q.val || root.val == p.val) && (lson || rson))) {
-                ans = root;
-            }
-            if (lson || rson || root.val == q.val || root.val == p.val) {
-                return true;
-            }
-            return false;
-
-        }
         public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-            this.dfs(root, p, q);
-            return this.ans;
+            TreeNode ans = pQinRoot(root, p, q);
+            return ans;
+        }
+
+        public TreeNode pQinRoot(TreeNode root, TreeNode p, TreeNode q) {
+            if (root == null) {
+                return null;
+            }
+            // 如果有p或者q则返回该节点，子节点不再遍历
+            if (root == p || root == q) {
+                return root;
+
+            }
+            TreeNode left = pQinRoot(root.left, p, q);
+            TreeNode right = pQinRoot(root.right, p, q);
+            // p q 存在于左右节点中
+            if (left != null && right != null) {
+                return root;
+            }
+
+            if (left == null && right == null) {
+                return null;
+            }
+            //只有一个 则返回该节点
+            return left == null ? right : left;
+
         }
     }
-
 
 }
 

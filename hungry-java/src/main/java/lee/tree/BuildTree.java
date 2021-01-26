@@ -11,12 +11,6 @@ import java.util.Map;
  **/
 public class BuildTree {
 
-    public class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode(int x) { val = x; }
-    }
     class Solution {
         public TreeNode buildTree(int[] preorder, int[] inorder) {
             return build(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
