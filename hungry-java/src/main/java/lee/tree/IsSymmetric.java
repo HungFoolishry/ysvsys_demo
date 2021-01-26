@@ -17,26 +17,35 @@ public class IsSymmetric {
         TreeNode right;
         TreeNode(int x) { val = x; }
     }
-
     class Solution {
+        boolean isSymmetric = true;
         public boolean isSymmetric(TreeNode root) {
-            return check(root, root);
-        }
-
-        public boolean check(TreeNode left, TreeNode right) {
-            if (left == null &&  right == null) {
+            if (root == null) {
                 return true;
-
             }
-            if (left == null || right == null) {
-                return false;
-            }
-            if (left.val == right.val) {
-                return check(right.left, left.right) && check(left.left, right.right);
-            }
-            return false;
+            dfs(root.left, root.right);
+            return isSymmetric;
         }
 
-   }
+        public void dfs(TreeNode node1, TreeNode node2) {
+            if (!isSymmetric) {
+                return;
+            }
+            if (node1 == null && node2 == null) {
+                return;
+            }
+            if (node1 == null || node2 == null) {
+                isSymmetric = false;
+                return;
+            }
+            if (node1.val != node2.val) {
+                isSymmetric = false;
+                return;
+            }
+            dfs(node1.left, node2.right);
+            dfs(node1.right, node2.left);
+        }
+    }
+
 
 }
