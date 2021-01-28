@@ -18,25 +18,16 @@ public class MaxDepth {
     }
 
     class Solution {
-        int maxDeep;
 
-        public Solution() {
-            maxDeep = 0;
-        }
 
-        private void sumDeep(TreeNode node, int nowDeep) {
-            if (node == null) {
-                this.maxDeep = Math.max(this.maxDeep, nowDeep);
-                return;
-            }
-            nowDeep++;
-            sumDeep(node.left, nowDeep);
-            sumDeep(node.right, nowDeep);
-        }
-
+        // 计算本节点为根的深度 == Max(左深，右深)+1；
         public int maxDepth(TreeNode root) {
-            sumDeep(root, 0);
-            return this.maxDeep;
+            if (root == null) {
+                return 0;
+            }
+            // 取左右节点中深度一个节点 并且 + 1 本节点 返回给父节点
+            return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
+
         }
     }
 }

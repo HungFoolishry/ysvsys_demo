@@ -11,26 +11,20 @@ import java.util.List;
  * @date 2021-01-23 23:31
  **/
 public class IsPalindrome {
-     public class ListNode {
-         int val;
-         ListNode next;
-         ListNode() {}
-         ListNode(int val) { this.val = val; }
-         ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-     }
+
     class Solution {
+        ListNode left;
         public boolean isPalindrome(ListNode head) {
+            left = head;
             return reverse(head);
 
         }
 
-        ListNode left;
         public boolean reverse(ListNode head) {
             if (head == null) {
                 return true;
             }
-            boolean ans = reverse(head.next);
-            if (!ans) {
+            if (!reverse(head.next)) {
                 return false;
             }
             if (left.val != head.val) {

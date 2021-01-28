@@ -19,32 +19,24 @@ public class SumNumbers {
     }
 
     class Solution {
-        int result;
-        public Solution(){
-            result = 0;
-        }
-
-        private void sumNode(TreeNode node, int sum) {
-            if (node == null) {
-               return;
-            }
-            if (node.left == null && node.right == null) {
-                sum = sum * 10 + node.val;
-                this.result = this.result + sum;
-            }
-            sum = sum * 10 + node.val;
-            if (node.left != null) {
-                sumNode(node.left, sum);
-            }
-            if (node.right != null) {
-                sumNode(node.right, sum);
-            }
-
-        }
-
+        int ans = 0;
+        int his = 0;
         public int sumNumbers(TreeNode root) {
-            this.sumNode(root, 0);
-            return this.result;
+            dfs(root);
+            return ans;
+        }
+
+        public void dfs(TreeNode root) {
+            if (root == null) {
+                return;
+            }
+            his = his * 10 + root.val;
+            if (root.left == null && root.right == null) {
+                ans = ans + his;
+            }
+            dfs(root.left);
+            dfs(root.right);
+            his = his / 10;
         }
     }
 

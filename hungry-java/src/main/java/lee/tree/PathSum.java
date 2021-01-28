@@ -1,6 +1,8 @@
 package lee.tree;
 
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -12,40 +14,30 @@ import java.util.List;
 public class PathSum {
     class Solution {
         List<List<Integer>> ans = new ArrayList<>();
-        List<Integer> history = new ArrayList<>();
+        Deque<Integer> history = new LinkedList<>();
         public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
             if (root == null) {
                 return ans;
             }
-            history.add(root.val);
             dfs(root, targetSum);
             return ans;
         }
 
         public void dfs(TreeNode root, int targetSum) {
             if (root == null) {
-                return ;
+                return;
             }
+            history.addLast(root.val);
             if (root.left == null && root.right == null && root.val == targetSum) {
                 List<Integer> endList = new ArrayList<>(history);
                 ans.add(endList);
-                return;
-            }
-            if (root.left != null) {
-                history.add(root.left.val);
+                // 找到后不能返回，后面还有删除操作
             }
             dfs(root.left, targetSum - root.val);
-            if (root.left != null) {
-                history.remove(history.size() - 1);
-            }
-            if (root.right != null) {
-                history.add(root.right.val);
-            }
             dfs(root.right, targetSum - root.val);
-            if (root.right != null) {
-                history.remove(history.size() - 1);
-            }
+            history.removeLast();
         }
+
     }
 
 }

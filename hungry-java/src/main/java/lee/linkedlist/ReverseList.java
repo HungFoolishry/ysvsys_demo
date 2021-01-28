@@ -30,6 +30,7 @@ public class ReverseList {
             }
             ListNode last = reverseList(head.next);
             head.next.next = head;
+            // 防止原第一个节点于第二个节点产生环
             head.next = null;
             return last;
         }
@@ -50,5 +51,6 @@ public class ReverseList {
             return head;
 
         }
+
     }
 }

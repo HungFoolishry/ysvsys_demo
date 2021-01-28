@@ -12,15 +12,14 @@ import java.util.List;
 public class ClimbStairs {
     class Solution {
         public int climbStairs(int n) {
-            int p = 0;
-            int q = 1;
-            int r = 0;
-            for (int i = 1; i <= n; i++) {
-                r = p + q;
-                p = q;
-                q = r;
+            int[] dp = new int[n + 1];
+            dp[0] = 1;
+            dp[1] = 1;
+            for (int i = 2; i < n + 1; i++) {
+                dp[i] = dp[i - 1] + dp[i - 2];
             }
-            return r;
+            return dp[n];
+
         }
     }
 }
