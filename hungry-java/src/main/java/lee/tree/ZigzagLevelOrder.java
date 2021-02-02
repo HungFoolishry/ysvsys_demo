@@ -2,6 +2,7 @@ package lee.tree;
 
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -13,58 +14,37 @@ import java.util.Queue;
  * @date 2020-09-30 23:22
  **/
 public class ZigzagLevelOrder {
-    class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode(int x) {
-            val = x;
-        }
-    }
 
     class Solution {
+        Deque<TreeNode> q = new LinkedList<>();
+        List<List<Integer>> ans = new ArrayList<>();
 
         public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-            List<List<Integer>> result = new ArrayList<>();
-            Queue<TreeNode> rTreeList = new LinkedList<>();
-            Queue<TreeNode> lTreeList = new LinkedList<>();
             if (root == null) {
-                return result;
+                return ans;
             }
-            rTreeList.add(root);
-            while (!rTreeList.isEmpty() || !lTreeList.isEmpty()) {
-                List<Integer> tmpIntList;
-                if (!rTreeList.isEmpty()) {
-                    tmpIntList = new ArrayList<>();
-                    TreeNode node;
-                    while ((node = rTreeList.poll()) != null) {
-                        tmpIntList.add(node.val);
-                        if (node.left != null) {
-                            lTreeList.add(node.left);
-                        }
-                        if (node.right !=null) {
-                            lTreeList.add(node.right);
-                        }
+            q.add(root);
+            while (!q.isEmpty()) {
+                int size = q.size();
+                Deque<Integer> ints = new LinkedList<>();
+                for (int i = 0; i < size; i++) {
+                    TreeNode cur = q.removeFirst();
+                    if (ans.size() % 2 == 0) {
+                        ints.addLast(cur.val);
+                    }else {
+                        ints.addFirst(cur.val);
                     }
-                } else {
-                    tmpIntList = new ArrayList<>();
-                    TreeNode node;
-                    while ((node = lTreeList.poll()) != null) {
-                        tmpIntList.add(0, node.val);
-                        if (node.left != null) {
-                            rTreeList.add(node.left);
-                        }
-                        if (node.right !=null) {
-                            rTreeList.add(node.right);
-                        }
-                    }
-                }
-                if (!tmpIntList.isEmpty()) {
-                    result.add(tmpIntList);
-                }
 
+                    if (cur.left != null) {
+                        q.addLast(cur.left);
+                    }
+                    if (cur.right != null) {
+                        q.addLast(cur.right);
+                    }
+                }
+                ans.add(new ArrayList<>(ints));
             }
-            return result;
+            return ans;
 
         }
     }

@@ -1,8 +1,11 @@
 package lee.tree;
 
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 /**
@@ -12,42 +15,46 @@ import java.util.Queue;
  * @date 2020-12-29 19:29
  **/
 public class LevelOrder {
-    public class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x) {
-            val = x;
-        }
-    }
-
     class Solution {
-        public List<List<Integer>> levelOrder(TreeNode root) {
-            List<List<Integer>> res = new ArrayList<>();
+        public int[] levelOrder(TreeNode root) {
+
+            List<Integer> ans = new ArrayList<>();
+            Deque<TreeNode> nodes = new LinkedList<>();
             if (root == null) {
-                return res;
+                return ans.stream().mapToInt(i -> i).toArray();
             }
-            Queue<TreeNode> list = new LinkedList<>();
-            list.add(root);
-            while (!list.isEmpty()) {
-                List<Integer> partRes = new ArrayList<>();
-
-                int size = list.size();
+            nodes.add(root);
+            while (!nodes.isEmpty()) {
+                int size = nodes.size();
                 for (int i = 0; i < size; i++) {
-                    TreeNode node = list.poll();
-                    if (node.left != null) {
-                        list.add(node.left);
+                    TreeNode cur = nodes.poll();
+                    if (cur == null) {
+                        continue;
                     }
-                    if (node.right != null) {
-                        list.add(node.right);
-                    }
-                    partRes.add(node.val);
+                    ans.add(cur.val);
+                    nodes.add(cur.left);
+                    nodes.add(cur.right);
                 }
-                res.add(partRes);
             }
-            return res;
-
+            int[] ans2 = ans.stream().mapToInt(i -> i).toArray();
+            return ans2;
         }
     }
-}
+//    class Solution {
+//        public int[] levelOrder(TreeNode root) {
+//            if(root == null) return new int[0];
+//            Queue<TreeNode> queue = new LinkedList<>(){{ add(root); }};
+//            ArrayList<Integer> ans = new ArrayList<>();
+//            while(!queue.isEmpty()) {
+//                TreeNode node = queue.poll();
+//                ans.add(node.val);
+//                if(node.left != null) queue.add(node.left);
+//                if(node.right != null) queue.add(node.right);
+//            }
+//            int[] res = new int[ans.size()];
+//            for(int i = 0; i < ans.size(); i++)
+//                res[i] = ans.get(i);
+//            return res;
+//        }
+//    }
+    }
