@@ -9,22 +9,6 @@ import java.util.LinkedList;
  * @date 2020-10-20 19:45
  **/
 public class ReorderList {
-    static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
-    }
 
     public static void reorderList(ListNode head) {
         if (head == null) {
@@ -46,8 +30,6 @@ public class ReorderList {
             if (tmp == topNode) {
                 break;
             }
-
-
 
             topNode = nodeList.pop();
         }

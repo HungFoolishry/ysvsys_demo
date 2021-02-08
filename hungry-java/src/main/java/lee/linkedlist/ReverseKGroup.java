@@ -7,18 +7,9 @@ package lee.linkedlist;
  * @date 2020-11-02 16:31
  **/
 public class ReverseKGroup {
-    public class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
-    }
     class Solution {
         // 返回已经反转好的group的头节点
         public ListNode reverseKGroup(ListNode head, int k) {
-            ListNode a = head;
             ListNode b = head;
             for (int i = 0; i < k; i++) {
                 if (b ==null) {
@@ -27,10 +18,10 @@ public class ReverseKGroup {
                 b = b.next;
             }
             //反转每个group中的节点 并且返回头节点
-            ListNode newHead = reverseAb(a, b);
+            ListNode newHead = reverseAb(head, b);
             // a   nH            K return
             // -1<-2 null<-3<-4<-5
-            a.next = reverseKGroup(b, k);
+            head.next = reverseKGroup(b, k);
             return newHead;
         }
 

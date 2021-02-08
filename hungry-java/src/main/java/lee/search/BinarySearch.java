@@ -70,7 +70,29 @@ public class BinarySearch {
 
     public static void main(String[] args) {
         BinarySearch binarySearch = new BinarySearch();
-        System.out.println(binarySearch.rightBinarySearch(new int[]{1, 2, 2, 2, 3,}, 10));
+        System.out.println(binarySearch.rightSearch(new int[]{1, 2, 2, 2, 3,}, -11));
+    }
+
+    public int rightSearch(int[] nums, int target) {
+        int len = nums.length;
+        int l = 0;
+        int r = len - 1;
+        while (l <= r) {
+            int mid = l + (r - l)/2;
+            if (target == nums[mid]) {
+                l = mid + 1;
+            } else if (target > nums[mid]) {
+                l = mid + 1;
+            } else if (target < nums[mid]) {
+                r = mid - 1;
+            }
+        }
+        if (r < 0 || nums[r] != target) {
+            return -1;
+        }
+        return r;
+
+
     }
 
 }

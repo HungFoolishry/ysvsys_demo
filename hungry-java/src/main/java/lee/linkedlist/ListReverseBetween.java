@@ -8,14 +8,6 @@ package lee.linkedlist;
 
 
 public class ListReverseBetween {
-    static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
-    }
 
     ListNode successor;
     public ListNode reverseBetween(ListNode head, int m, int n) {

@@ -7,22 +7,6 @@ package lee.linkedlist;
  * @date 2021-01-21 20:28
  **/
 public class ReverseN {
-    static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
-    }
     ListNode finalNode;
     public ListNode reverseN(ListNode head, int n) {
         if (n ==1) {

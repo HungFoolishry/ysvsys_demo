@@ -14,6 +14,8 @@ public class ThreeSum{
     static class Solution {
         public List<List<Integer>> threeSum(int[] nums) {
             List<List<Integer>> ans = new ArrayList<>();
+            List<Integer> a = new ArrayList<>();
+            a.add(3);
             int len = nums.length;
             if (len < 3) {
                 return ans;
@@ -23,6 +25,7 @@ public class ThreeSum{
                 return ans;
             }
             for (int i = 0; i < len; i++) {
+                // 一开始排除，第二个开始排除重复
                 if (i > 0 && nums[i] == nums[i - 1]) {
                     continue;
                 }
@@ -35,6 +38,7 @@ public class ThreeSum{
                     int sum = nums[i] + nums[l] + nums[r];
                     if (sum == 0) {
                         ans.add(Arrays.asList(nums[i], nums[l], nums[r]));
+                        // 如果找到了，则要排除重复，否则不排除
                         while (l < r && nums[l] == nums[l + 1]) {
                             l++;
                         }
@@ -48,6 +52,7 @@ public class ThreeSum{
                     } else {
                         l++;
                     }
+                    // 提早熔断
                     if (nums[l] > -nums[i]) {
                         break;
                     }
