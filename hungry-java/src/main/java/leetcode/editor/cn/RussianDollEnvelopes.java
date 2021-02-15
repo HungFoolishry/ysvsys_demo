@@ -28,10 +28,10 @@ public class RussianDollEnvelopes {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int maxEnvelopes(int[][] envelopes) {
+
             int m = envelopes.length;
-            int ans = 0;
+            int ans = 1;
             Arrays.sort(envelopes, (a,b)-> a[0]*a[1] - b[0]*b[1]);
-            System.out.println(Arrays.deepToString(envelopes));
             int[] dp = new int[m];
             Arrays.fill(dp, 1);
             for (int i = 0; i < m; i++) {

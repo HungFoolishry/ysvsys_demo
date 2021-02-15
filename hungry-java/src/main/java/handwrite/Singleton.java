@@ -17,7 +17,7 @@ public class Singleton {
     public static void main(String[] args) {
         System.out.println(sin);
     }
-
+    // 通过volatile + DLC 实现单例
     private volatile Singleton sin2;
     private Singleton getSin() {
         if (sin2 == null) {
@@ -29,4 +29,5 @@ public class Singleton {
         }
         return sin2;
     }
+
 }
