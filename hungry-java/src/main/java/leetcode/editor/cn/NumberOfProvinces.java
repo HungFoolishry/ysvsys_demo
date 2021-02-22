@@ -54,6 +54,7 @@ public class NumberOfProvinces {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int findCircleNum(int[][] isConnected) {
+            return 1;
 
         }
     }
