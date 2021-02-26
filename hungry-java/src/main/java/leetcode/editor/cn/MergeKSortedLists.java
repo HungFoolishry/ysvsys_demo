@@ -71,23 +71,22 @@ public class MergeKSortedLists {
      */
     class Solution {
         public ListNode mergeKLists(ListNode[] lists) {
-            if (lists.length == 0) {
-                return null;
-            }
             return merge(lists, 0, lists.length - 1);
         }
 
-        public ListNode merge(ListNode[] lists, int left, int right) {
-            if (right - left == 0) {
-                return lists[left];
-            } else if (right - left == 1) {
-                return merge(lists[left], lists[right]);
+        public ListNode merge(ListNode[] lists, int i, int j) {
+            if (j < i) {
+                return null;
             }
-            int mid = left + (right - left) / 2;
-            ListNode l = merge(lists, left, mid);
-            ListNode r = merge(lists, mid+1, right);
-            return merge(l, r);
-
+            if (j == i) {
+                return lists[i];
+            }
+            if (j - i == 1) {
+                return merge(lists[i], lists[j]);
+            }
+            ListNode l1 = merge(lists, i, i + (j - i) / 2);
+            ListNode l2 = merge(lists, i + (j - i) / 2+1, j);
+            return merge(l1, l2);
         }
 
         public ListNode merge(ListNode l1, ListNode l2) {
@@ -103,7 +102,6 @@ public class MergeKSortedLists {
             } else {
                 l2.next = merge(l1, l2.next);
                 return l2;
-
             }
         }
     }

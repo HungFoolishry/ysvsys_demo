@@ -45,6 +45,8 @@ package leetcode.editor.cn;
 
 import leetcode.editor.cn.base.ListNode;
 
+import java.util.List;
+
 public class SortList{
     public static void main(String[] args) {
         Solution solution = new SortList().new Solution();
@@ -71,24 +73,26 @@ public class SortList{
  */
 class Solution {
     public ListNode sortList(ListNode head) {
-        if (head == null || head.next == null) {
+        if (head == null) {
+            return null;
+        }
+        if (head.next == null) {
             return head;
         }
         ListNode fast = head;
         ListNode slow = head;
-        while(fast != null && fast.next != null) {
-            slow = slow.next;
+        //
+        ListNode pre = head;
+        while (fast != null && fast.next != null) {
             fast = fast.next.next;
+            pre = slow;
+            slow = slow.next;
         }
-        // 如果slow是head 的下一个节点，表示队列中只剩下两个节点，那么要单独分割两个节点
-        if (slow == head.next) {
-            slow = head;
-        }
-        ListNode tmp = slow.next;
-        slow.next = null;
-        ListNode left = sortList(head);
-        ListNode right = sortList(tmp);
-        return merge(left, right);
+        ListNode mid = slow;
+        pre.next = null;
+        ListNode l1 = sortList(head);
+        ListNode l2 = sortList(mid);
+        return merge(l1, l2);
 
    }
 

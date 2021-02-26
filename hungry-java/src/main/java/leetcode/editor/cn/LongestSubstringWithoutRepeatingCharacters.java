@@ -59,21 +59,25 @@ public class LongestSubstringWithoutRepeatingCharacters {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int lengthOfLongestSubstring(String s) {
-            Map<Character, Integer> mem = new HashMap<>();
+            HashMap<Character, Integer> his = new HashMap<>();
             int l = 0;
             int ans = 0;
             for (int r = 0; r < s.length(); r++) {
-                if (!mem.containsKey(s.charAt(r))) {
-                    mem.put(s.charAt(r), r);
+                if (his.containsKey(s.charAt(r))) {
+                    // 左边界= 重复字母+1
+                    l = Math.max(his.get(s.charAt(r))+1, l);
+                    his.put(s.charAt(r), r);
                 } else {
-                    l = Math.max(mem.get(s.charAt(r))+1, l);
-                    mem.put(s.charAt(r), r);
+                    his.put(s.charAt(r), r);
                 }
+                //每次都要计算 不然遍历到最后一个字母不会计算
                 ans = Math.max(r - l + 1, ans);
+
             }
             return ans;
+
+            }
         }
-    }
 //leetcode submit region end(Prohibit modification and deletion)
 
 }

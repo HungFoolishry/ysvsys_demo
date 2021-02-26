@@ -75,27 +75,26 @@ public class SubtreeOfAnotherTree {
      */
     class Solution {
         public boolean isSubtree(TreeNode s, TreeNode t) {
-            return dfs(s, t);
-        }
-
-        public boolean dfs(TreeNode s, TreeNode t) {
             if (s == null && t == null) {
                 return true;
             }
             if (s == null || t == null) {
                 return false;
             }
-            return isSame(s,t) || dfs(s.left, t) || dfs(s.right, t);
-        }
-
-        public boolean isSame(TreeNode s, TreeNode t) {
-            if (s == null && t == null) {
+            if (isSame(s, t)) {
                 return true;
             }
-            if (s == null || t == null) {
+            return isSubtree(s.left, t) || isSubtree(s.right, t);
+        }
+
+        private boolean isSame(TreeNode t1, TreeNode t2) {
+            if (t1 == null && t2 == null) {
+                return true;
+            }
+            if (t1 == null || t2 == null) {
                 return false;
             }
-            return s.val == t.val && isSame(s.right, t.right) && isSame(s.left, t.left);
+            return t1.val == t2.val && isSame(t1.right, t2.right) && isSame(t1.left, t2.left);
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

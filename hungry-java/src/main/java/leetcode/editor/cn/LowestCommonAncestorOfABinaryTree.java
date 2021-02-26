@@ -64,24 +64,28 @@ public class LowestCommonAncestorOfABinaryTree {
      */
     class Solution {
         public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+            return dfs(root, p, q);
+        }
+
+        public TreeNode dfs(TreeNode root, TreeNode p, TreeNode q) {
             if (root == null) {
                 return null;
             }
-            if (root == p) {
+            if (root == q || root == p) {
                 return root;
             }
-            if (root == q) {
-                return q;
-            }
-            TreeNode left = lowestCommonAncestor(root.left, p, q);
-            TreeNode right = lowestCommonAncestor(root.right, p, q);
+            TreeNode left = dfs(root.left, p, q);
+            TreeNode right = dfs(root.right, p, q);
             if (left != null && right != null) {
                 return root;
             }
-            if (left == null && right == null) {
-                return null;
+            if (right != null) {
+                return right;
             }
-            return left == null ? right : left;
+            if (left != null) {
+                return left;
+            }
+            return null;
         }
 
     }

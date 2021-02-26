@@ -46,31 +46,46 @@ public class MaxAreaOfIsland {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        int ans = 0;
+        int tmp = 0;
         public int maxAreaOfIsland(int[][] grid) {
-            int ans = 0;
             int m = grid.length;
+            if (m == 0) {
+                return ans;
+            }
             int n = grid[0].length;
             for (int i = 0; i < m; i++) {
                 for (int j = 0; j < n; j++) {
-                    ans = Math.max(ans, dfs(i, j, grid));
+                    if (grid[i][j] == 1) {
+                        tmp = 0;
+                        dfs(grid, i, j);
+                    }
                 }
             }
             return ans;
+
         }
 
-        // 返回以该点开始最大的岛屿数值；
-        public int dfs(int i, int j, int[][] grid) {
-            if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j] == 0) {
-                return 0;
+        private void dfs(int[][] grid, int i, int j) {
+            if (i >= grid.length || i < 0) {
+                return;
             }
-            grid[i][j] = 0;
-            int sum = 1;
-            sum += dfs(i - 1, j,grid);
-            sum += dfs(i, j - 1, grid);
-            sum += dfs(i, j+1, grid);
-            sum += dfs(i + 1, j, grid);
-            return sum;
+            if (j >= grid[0].length || j < 0) {
+                return;
+            }
+            if (grid[i][j] == 1) {
+                tmp++;
+                ans = Math.max(tmp, ans);
+                grid[i][j] = 0;
+            } else {
+                return;
+            }
+            dfs(grid, i + 1, j);
+            dfs(grid, i, j + 1);
+            dfs(grid, i - 1, j);
+            dfs(grid,i,j-1);
         }
+
     }
 //leetcode submit region end(Prohibit modification and deletion)
 

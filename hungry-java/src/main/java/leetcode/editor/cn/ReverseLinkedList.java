@@ -36,14 +36,13 @@ class Solution {
             return null;
         }
         if (head.next == null) {
-            // 返回链表的最后一个节点
             return head;
         }
-        //如果head.next 是最后一个节点，那么head 就是最后第二个节点
         ListNode last = reverseList(head.next);
         head.next.next = head;
         head.next = null;
         return last;
+
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

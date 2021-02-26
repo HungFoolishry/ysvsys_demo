@@ -18,6 +18,8 @@ package leetcode.editor.cn;
 
 import leetcode.editor.cn.base.ListNode;
 
+import java.util.List;
+
 public class ReorderList{
     public static void main(String[] args) {
          Solution solution = new ReorderList().new Solution();
@@ -35,6 +37,45 @@ public class ReorderList{
  */
 class Solution {
     public void reorderList(ListNode head) {
+        if (head == null) {
+            return;
+        }
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        ListNode mid = slow.next;
+        slow.next = null;
+        ListNode last = reverse(mid);
+        merge(head, last);
+    }
+
+    public ListNode reverse(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        if (head.next == null) {
+            return head;
+        }
+
+        ListNode last = reverse(head.next);
+        head.next.next = head;
+        head.next = null;
+        return last;
+    }
+
+    public void merge(ListNode l1, ListNode l2) {
+        while (l1 != null && l2 != null) {
+            ListNode tmp1 = l1.next;
+            ListNode tmp2 = l2.next;
+            l1.next = l2;
+            l2.next = tmp1;
+            l1 = tmp1;
+            l2 = tmp2;
+
+        }
 
     }
 }

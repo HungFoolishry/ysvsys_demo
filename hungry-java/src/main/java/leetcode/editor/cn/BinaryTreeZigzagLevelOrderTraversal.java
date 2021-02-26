@@ -50,29 +50,28 @@ public class BinaryTreeZigzagLevelOrderTraversal {
      */
     class Solution {
         public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-            if (root == null) {
-                return new ArrayList<>();
-            }
             List<List<Integer>> ans = new ArrayList<>();
-            Deque<TreeNode> queue = new LinkedList<>();
-            queue.add(root);
-            while (!queue.isEmpty()) {
-                int size = queue.size();
+            if (root == null) {
+                return ans;
+            }
+            Deque<TreeNode> his = new LinkedList<>();
+            his.add(root);
+            while (!his.isEmpty()) {
+                int size = his.size();
                 LinkedList<Integer> tmp = new LinkedList<>();
                 for (int i = 0; i < size; i++) {
-                    TreeNode cur = queue.pop();
+                    TreeNode cur = his.removeFirst();
                     if (ans.size() % 2 == 0) {
                         tmp.addLast(cur.val);
                     } else {
                         tmp.addFirst(cur.val);
                     }
                     if (cur.left != null) {
-                        queue.add(cur.left);
+                        his.add(cur.left);
                     }
                     if (cur.right != null) {
-                        queue.add(cur.right);
+                        his.add(cur.right);
                     }
-
                 }
                 ans.add(tmp);
             }

@@ -63,6 +63,8 @@ package leetcode.editor.cn;
 
 import leetcode.editor.cn.base.ListNode;
 
+import java.time.temporal.ChronoUnit;
+
 public class IntersectionOfTwoLinkedLists {
     public static void main(String[] args) {
         Solution solution = new IntersectionOfTwoLinkedLists().new Solution();
@@ -89,6 +91,7 @@ public class IntersectionOfTwoLinkedLists {
                 curB = curB == null ? headA : curB.next;
             }
             return curA;
+
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

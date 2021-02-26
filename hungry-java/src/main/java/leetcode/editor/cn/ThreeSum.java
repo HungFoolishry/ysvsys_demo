@@ -59,21 +59,22 @@ public class ThreeSum {
             Arrays.sort(nums);
             for (int i = 0; i < nums.length; i++) {
                 if (i > 0 && nums[i] == nums[i - 1]) {
+                    //i++在循环那层
                     continue;
                 }
-                int l = i + 1;
+                int l = i+1;
                 int r = nums.length - 1;
                 while (l < r) {
+
                     int sum = nums[i] + nums[l] + nums[r];
                     if (sum == 0) {
                         ans.add(Arrays.asList(nums[i], nums[l], nums[r]));
-                        while (l < r && nums[l] == nums[l + 1]) {
+                        while (nums[l] == nums[l+1] && l+1 < r) {
                             l++;
                         }
-                        while (l < r && nums[r] == nums[r - 1]) {
+                        while (nums[r] == nums[r - 1] && r > l) {
                             r--;
                         }
-                        // 一定要在去重复后再进行位移
                         l++;
                         r--;
                     } else if (sum > 0) {
@@ -81,6 +82,7 @@ public class ThreeSum {
                     } else {
                         l++;
                     }
+
                 }
             }
             return ans;
