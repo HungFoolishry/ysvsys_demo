@@ -48,8 +48,8 @@ class Solution {
         }
         ListNode mid = slow.next;
         slow.next = null;
-        ListNode last = reverse(mid);
-        merge(head, last);
+        ListNode l1 = reverse(mid);
+        merge(head, l1);
     }
 
     public ListNode reverse(ListNode head) {
@@ -59,25 +59,22 @@ class Solution {
         if (head.next == null) {
             return head;
         }
-
         ListNode last = reverse(head.next);
         head.next.next = head;
         head.next = null;
         return last;
     }
-
-    public void merge(ListNode l1, ListNode l2) {
-        while (l1 != null && l2 != null) {
-            ListNode tmp1 = l1.next;
-            ListNode tmp2 = l2.next;
-            l1.next = l2;
-            l2.next = tmp1;
-            l1 = tmp1;
-            l2 = tmp2;
-
+    public ListNode merge(ListNode l1, ListNode l2) {
+        if (l1 == null) {
+            return l2;
         }
-
+        if (l2 == null) {
+            return l1;
+        }
+        l1.next = merge(l2, l1.next);
+        return l1;
     }
+
 }
 //leetcode submit region end(Prohibit modification and deletion)
 

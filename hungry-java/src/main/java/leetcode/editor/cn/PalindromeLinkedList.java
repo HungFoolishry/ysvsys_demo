@@ -37,20 +37,23 @@ public class PalindromeLinkedList{
  * }
  */
 class Solution {
-    ListNode left;
+    private ListNode left;
     public boolean isPalindrome(ListNode head) {
         left = head;
         return check(head);
     }
+
     public boolean check(ListNode head) {
         if (head == null) {
             return true;
         }
-        boolean last = check(head.next);
-        boolean ans = last && head.val == left.val;
+        if (head.next == null) {
+            return head.val == left.val;
+        }
+        boolean isPal = check(head.next);
         left = left.next;
-        return ans;
-   }
+        return isPal && left.val == head.val;
+    }
 }
 //leetcode submit region end(Prohibit modification and deletion)
 

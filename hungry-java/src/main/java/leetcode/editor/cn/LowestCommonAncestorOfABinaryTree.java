@@ -71,7 +71,7 @@ public class LowestCommonAncestorOfABinaryTree {
             if (root == null) {
                 return null;
             }
-            if (root == q || root == p) {
+            if (root == p || root == q) {
                 return root;
             }
             TreeNode left = dfs(root.left, p, q);
@@ -79,11 +79,11 @@ public class LowestCommonAncestorOfABinaryTree {
             if (left != null && right != null) {
                 return root;
             }
-            if (right != null) {
-                return right;
-            }
             if (left != null) {
                 return left;
+            }
+            if (right != null) {
+                return right;
             }
             return null;
         }

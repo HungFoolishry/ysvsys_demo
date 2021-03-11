@@ -10,6 +10,7 @@ public class BackToOrigin {
     class Solution {
         public int backToOrigin(int n) {
             int len = 10;
+            //走i步到j点的方案
             int[][] dp = new int[n + 1][len];
             dp[0][0] = 1;
             for (int i = 1; i < n + 1; i++) {

@@ -45,6 +45,7 @@ package leetcode.editor.cn;
 public class SearchInRotatedSortedArray {
     public static void main(String[] args) {
         Solution solution = new SearchInRotatedSortedArray().new Solution();
+        System.out.println(solution.search(new int[] {3,1}, 1));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
@@ -58,18 +59,18 @@ public class SearchInRotatedSortedArray {
                 if (nums[mid] == target) {
                     return mid;
                 }
-                if (nums[0] > nums[mid]) {
-                    if (target <= nums[r] && target > nums[mid]) {
-                        l = mid + 1;
-                    } else {
+                // mid >= 0
+                if (nums[0] <= nums[mid]) {
+                    if (target < nums[mid] && target >= nums[l]) {
                         r = mid - 1;
+                    } else {
+                        l = mid + 1;
                     }
-
                 } else {
-                    if (target >= nums[l]&& target < nums[mid]) {
-                        r = mid - 1;
-                    } else {
+                    if (target > nums[mid] && target <= nums[r]) {
                         l = mid + 1;
+                    } else {
+                        r = mid - 1;
                     }
                 }
             }

@@ -23,48 +23,50 @@ package leetcode.editor.cn;
 
 import leetcode.editor.cn.base.TreeNode;
 
-public class ConstructBinaryTreeFromPreorderAndInorderTraversal{
+public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
     public static void main(String[] args) {
-         Solution solution = new ConstructBinaryTreeFromPreorderAndInorderTraversal().new Solution();
+        Solution solution = new ConstructBinaryTreeFromPreorderAndInorderTraversal().new Solution();
     }
     //leetcode submit region begin(Prohibit modification and deletion)
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
-class Solution {
-    public TreeNode buildTree(int[] preorder, int[] inorder) {
-        return build(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
-    }
-    public TreeNode build(int[] preorder,int pStart,int pEnd, int[] inorder,int iStart,int iEnd) {
-        if (pStart > pEnd) {
-            return null;
+
+    /**
+     * Definition for a binary tree node.
+     * public class TreeNode {
+     * int val;
+     * TreeNode left;
+     * TreeNode right;
+     * TreeNode() {}
+     * TreeNode(int val) { this.val = val; }
+     * TreeNode(int val, TreeNode left, TreeNode right) {
+     * this.val = val;
+     * this.left = left;
+     * this.right = right;
+     * }
+     * }
+     */
+    class Solution {
+        public TreeNode buildTree(int[] preorder, int[] inorder) {
+            return dfs(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
         }
-        TreeNode root = new TreeNode(preorder[pStart]);
-        int mid = 0;
-        for (int i = iStart; i <= iEnd; i++) {
-            if (preorder[pStart] == inorder[i]) {
-                mid = i;
-                break;
+
+        public TreeNode dfs(int[] preorder, int preI, int preJ, int[] inorder, int inI, int inJ) {
+            if (preI > preJ || inI > inJ) {
+                return null;
             }
+            TreeNode root = new TreeNode(preorder[preI]);
+            int rootIndex = 0;
+            for (int i = inI; i <= inJ; i++) {
+                if (inorder[i] == preorder[preI]) {
+                    rootIndex = i;
+                    break;
+                }
+            }
+            int leftLen = rootIndex - inI;
+            root.left = dfs(preorder,preI+1,preI+leftLen, inorder,inI, rootIndex);
+            root.right = dfs(preorder, preI + leftLen + 1, preJ, inorder, rootIndex + 1, inJ);
+            return root;
         }
-        int len = mid - iStart;
-        root.left = build(preorder, pStart + 1, pStart + len, inorder, iStart, mid - 1);
-        root.right = build(preorder, pStart + len + 1, pEnd, inorder, mid + 1, iEnd);
-        return root;
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
 }

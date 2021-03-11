@@ -37,7 +37,7 @@
 // pop、top 和 getMin 操作总是在 非空栈 上调用。
 //
 // Related Topics 栈 设计
-// 👍 815 👎 0
+// 👍 822 👎 0
 
 
 package leetcode.editor.cn;
@@ -52,34 +52,29 @@ class MinStack {
     /**
      * initialize your data structure here.
      */
-    Deque<Integer> stack1;
-    Deque<Integer> minStack;
+    private Deque<Integer> stack;
+    private Deque<Integer> minStack;
     public MinStack() {
-        stack1 = new LinkedList<>();
+        stack = new LinkedList<>();
         minStack = new LinkedList<>();
     }
 
     public void push(int x) {
-        stack1.push(x);
-        if (minStack.isEmpty()) {
+        stack.push(x);
+        if (minStack.isEmpty() || minStack.peek() > x) {
             minStack.push(x);
         } else {
-            if (x > minStack.peek()) {
-                minStack.push(minStack.peek());
-            } else {
-                minStack.push(x);
-            }
+            minStack.push(minStack.peek());
         }
     }
 
     public void pop() {
-        stack1.pop();
+        stack.pop();
         minStack.pop();
-
     }
 
     public int top() {
-        return stack1.peek();
+        return stack.peek();
     }
 
     public int getMin() {

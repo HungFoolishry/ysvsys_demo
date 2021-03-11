@@ -48,6 +48,7 @@
 
 package leetcode.editor.cn;
 
+import lee.tree.PreTree;
 import leetcode.editor.cn.base.ListNode;
 
 import java.util.Arrays;
@@ -71,25 +72,26 @@ public class MergeKSortedLists {
      */
     class Solution {
         public ListNode mergeKLists(ListNode[] lists) {
-            return merge(lists, 0, lists.length - 1);
-        }
-
-        public ListNode merge(ListNode[] lists, int i, int j) {
-            if (j < i) {
+            if (lists.length == 0) {
                 return null;
             }
-            if (j == i) {
-                return lists[i];
-            }
-            if (j - i == 1) {
-                return merge(lists[i], lists[j]);
-            }
-            ListNode l1 = merge(lists, i, i + (j - i) / 2);
-            ListNode l2 = merge(lists, i + (j - i) / 2+1, j);
-            return merge(l1, l2);
+            return mergePart(lists, 0, lists.length - 1);
         }
 
-        public ListNode merge(ListNode l1, ListNode l2) {
+        public ListNode mergePart(ListNode[] lists, int i, int j) {
+            if (i - j == 1) {
+                return mergeTwoList(lists[i], lists[j]);
+            } else if (i == j) {
+                return lists[i];
+            } else {
+                int mid = i + (j - i) / 2;
+                ListNode l1 = mergePart(lists, i, mid);
+                ListNode l2 = mergePart(lists, mid + 1, j);
+                return mergeTwoList(l1, l2);
+            }
+        }
+
+        public ListNode mergeTwoList(ListNode l1, ListNode l2) {
             if (l1 == null) {
                 return l2;
             }
@@ -97,13 +99,14 @@ public class MergeKSortedLists {
                 return l1;
             }
             if (l1.val < l2.val) {
-                l1.next = merge(l1.next, l2);
+                l1.next = mergeTwoList(l1.next, l2);
                 return l1;
             } else {
-                l2.next = merge(l1, l2.next);
+                l2.next = mergeTwoList(l1, l2.next);
                 return l2;
             }
         }
+
     }
 //leetcode submit region end(Prohibit modification and deletion)
 

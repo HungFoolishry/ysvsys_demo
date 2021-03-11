@@ -35,9 +35,6 @@ public class ReverseLinkedListIi {
      */
     class Solution {
         public ListNode reverseBetween(ListNode head, int m, int n) {
-            if (head == null) {
-                return null;
-            }
             if (m == 1) {
                 return reverseN(head, n);
             }
@@ -45,16 +42,15 @@ public class ReverseLinkedListIi {
             return head;
 
         }
+
         ListNode successor;
+        // 反转1-N节点，并且返回头节点，是一个完整的流程
         public ListNode reverseN(ListNode head, int n) {
-            if (head == null) {
-                return null;
-            }
             if (n == 1) {
                 successor = head.next;
                 return head;
             }
-            ListNode last  = reverseN(head.next, n - 1);
+            ListNode last = reverseN(head.next, n - 1);
             head.next.next = head;
             head.next = successor;
             return last;

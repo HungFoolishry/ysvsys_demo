@@ -1,5 +1,5 @@
-//以数组 intervals 表示若干个区间的集合，其中单个区间为 intervals[i] = [starti, endi] 。请你合并所有重叠的区间，并返
-//回一个不重叠的区间数组，该数组需恰好覆盖输入中的所有区间。
+//以数组 intervals 表示若干个区间的集合，其中单个区间为 intervals[i] = [starti, endi] 。
+// 请你合并所有重叠的区间，并返回一个不重叠的区间数组，该数组需恰好覆盖输入中的所有区间。
 //
 //
 //
@@ -45,23 +45,28 @@ public class MergeIntervals {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int[][] merge(int[][] intervals) {
-            if (intervals.length == 0) {
-                return new int[0][2];
-            }
+            List<int[]> ans = new ArrayList<>();
             Arrays.sort(intervals, (a,b)->a[0]-b[0]);
-            List<int[]> merged = new ArrayList<>();
-            for (int i = 0; i < intervals.length; ++i) {
-                int L = intervals[i][0], R = intervals[i][1];
-                if (merged.size() == 0 || merged.get(merged.size() - 1)[1] < L) {
-                    //更新操作 存储的右边节点比左边节点小 ，区间断开
-                    merged.add(new int[]{L, R});
+            int m = intervals.length;
+            int[] pre = intervals[0];
+            for (int i = 1; i < m; i++) {
+                if (pre[1] >= intervals[i][0]) {
+                    if (pre[1] < intervals[i][1]) {
+                        pre[1] = intervals[i][1];
+                    }
                 } else {
-                    // 存储的右边节点比左边节点大，但是要取新区间与存储的区间中最大值
-                    merged.get(merged.size() - 1)[1] = Math.max(merged.get(merged.size() - 1)[1], R);
+                    ans.add(pre);
+                    pre = intervals[i];
                 }
             }
-            // toArray（new int[size][]）
-            return merged.toArray(new int[merged.size()][]);
+            ans.add(pre);
+            int[][] intervalsAns = new int[ans.size()][2];
+            for (int i = 0; i < ans.size(); i++) {
+                intervalsAns[i] = ans.get(i);
+            }
+            return intervalsAns;
+
+
         }
     }
 

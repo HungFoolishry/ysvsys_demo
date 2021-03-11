@@ -1,6 +1,6 @@
-//路径 被定义为一条从树中任意节点出发，沿父节点-子节点连接，
-// 达到任意节点的序列。同一个节点在一条路径序列中 至多出现一次 。
-// 该路径 至少包含一个 节点，且不一定经过根节点。
+//路径 被定义为一条从树中任意节点出发，沿父节点-子节点连接，达到任意节点的序列。
+// 同一个节点在一条路径序列中 至多出现一次 。该路径 至少包含一个 节点，且不
+//一定经过根节点。
 //
 // 路径和 是路径中各节点值的总和。
 //
@@ -32,7 +32,7 @@
 // -1000 <= Node.val <= 1000
 //
 // Related Topics 树 深度优先搜索 递归
-// 👍 896 👎 0
+// 👍 912 👎 0
 
 
 package leetcode.editor.cn;
@@ -61,8 +61,8 @@ public class BinaryTreeMaximumPathSum {
      * }
      */
     class Solution {
-        private int ans = Integer.MIN_VALUE;
-        private int tmp;
+        int ans = Integer.MIN_VALUE;
+
         public int maxPathSum(TreeNode root) {
             dfs(root);
             return ans;
@@ -71,20 +71,20 @@ public class BinaryTreeMaximumPathSum {
         public int dfs(TreeNode root) {
             if (root == null) {
                 return 0;
+
             }
             int left = dfs(root.left);
             int right = dfs(root.right);
-            if (left > 0 && right > 0) {
-                ans = Math.max(ans, left + right + root.val);
-            } else if (left > 0) {
-                ans = Math.max(ans, left + root.val);
-            } else if (right > 0) {
-                ans = Math.max(ans, right + root.val);
+            int bigger = Math.max(left, right);
+            //核心在于计算的时候要计算左右子树，递归返回的时候只能返回较大的一边
+            ans = Math.max(Math.max(root.val,Math.max(bigger, left + right) + root.val), ans);
+            if (bigger > 0) {
+                return bigger + root.val;
             } else {
-                ans = Math.max(ans, root.val);
+                return root.val;
             }
 
-            return Math.max(right, left) > 0 ? Math.max(right, left) + root.val : root.val;
+
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

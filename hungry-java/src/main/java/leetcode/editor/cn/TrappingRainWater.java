@@ -42,28 +42,28 @@ public class TrappingRainWater {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int trap(int[] height) {
-            int ans = 0;
-            int n = height.length;
-            if (n == 0){
-                return ans;
+            int len = height.length;
+            if (len == 0) {
+                return 0;
             }
+            int lMax = height[0];
+            int rMax = height[len - 1];
             int l = 0;
-            int r = n -1;
-            int lMax= height[l];
-            int rMax = height[r];
-            while (l<r){
-                rMax = Math.max(rMax, height[r]);
-                lMax = Math.max(lMax, height[l]);
-                if (lMax > rMax) {
-                    ans += rMax -height[r];
-                    r --;
-                }else {
-                    ans += lMax -height[l];
+            int ans = 0;
+            int r = len - 1;
+            while (l < r) {
+                //核心在于先找大小， 然后找左右大边的小边-那一侧
+                lMax = Math.max(height[l], lMax);
+                rMax = Math.max(height[r], rMax);
+                if (lMax < rMax) {
+                    ans += lMax - height[l];
                     l++;
+                } else {
+                    ans += rMax - height[r];
+                    r--;
                 }
             }
             return ans;
-
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

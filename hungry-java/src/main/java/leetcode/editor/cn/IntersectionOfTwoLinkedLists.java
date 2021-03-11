@@ -90,8 +90,8 @@ public class IntersectionOfTwoLinkedLists {
                 curA = curA == null ? headB : curA.next;
                 curB = curB == null ? headA : curB.next;
             }
-            return curA;
 
+            return curB;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

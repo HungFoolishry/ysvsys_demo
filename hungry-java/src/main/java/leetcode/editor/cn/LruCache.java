@@ -52,28 +52,27 @@
 // 最多调用 3 * 104 次 get 和 put
 //
 // Related Topics 设计
-// 👍 1148 👎 0
+// 👍 1209 👎 0
 
 
 package leetcode.editor.cn;
 
-import com.sun.tools.internal.ws.wsdl.document.soap.SOAPUse;
-
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 public class LruCache {
+
     //leetcode submit region begin(Prohibit modification and deletion)
     class LRUCache {
-        LruList list;
-        Map<Integer, Node> map;
-        int capacity;
+        private Map<Integer, Node> map;
+        private DList dList;
+        public Integer capacity;
 
         public LRUCache(int capacity) {
-            list = new LruList();
-            map = new HashMap<>();
             this.capacity = capacity;
+            dList = new DList();
+            map = new HashMap<>();
+
         }
 
         public int get(int key) {
@@ -81,78 +80,79 @@ public class LruCache {
                 return -1;
             }
             Node node = map.get(key);
-            list.del(node);
-            list.addRecent(node);
+            dList.removeNode(node);
+            dList.addNode(node);
             return node.val;
         }
 
         public void put(int key, int value) {
-            Node node = new Node(key, value);
+            Node newNode = new Node(key, value);
             if (map.containsKey(key)) {
-                list.del(map.get(key));
+                Node node = map.get(key);
+                dList.removeNode(node);
+                map.put(key, newNode);
+                dList.addNode(newNode);
+            } else {
+                map.put(key, newNode);
+                dList.addNode(newNode);
+                if (capacity < dList.size) {
+                    Node removeNode = dList.removeOldest();
+                    map.remove(removeNode.key);
+                }
             }
-            map.put(key, node);
-            list.addRecent(node);
-            if (list.getSize() > capacity) {
-                Node last = list.removeLast();
-                map.remove(last.key);
-            }
+        }
+    }
+
+    class Node {
+        public Node pre;
+        public Node next;
+        public Integer key;
+        public Integer val;
+
+        public Node(Integer key, Integer val) {
+            this.key = key;
+            this.val = val;
+        }
+    }
+
+    class DList {
+        public Node head;
+        public Node tail;
+        public int size;
+
+        DList() {
+            head = new Node(null,null);
+            tail = new Node(null,null);
+            head.next = tail;
+            tail.pre = head;
+            size = 0;
+        }
+
+        public Node removeOldest() {
+            Node node = head.next;
+            removeNode(node);
+            return node;
 
         }
 
-        class Node {
-            Integer key;
-            Integer val;
-            Node next;
-            Node pre;
-
-            public Node(Integer key, Integer val) {
-                this.key = key;
-                this.val = val;
-            }
+        public void removeNode(Node node) {
+            Node tmp = node.next;
+            node.pre.next = tmp;
+            tmp.pre = node.pre;
+            node.next = null;
+            node.pre = null;
+            size--;
         }
 
-        class LruList {
-            Node head;
-            Node tail;
-            int size;
-
-            LruList() {
-                head = new Node(null, null);
-                tail = new Node(null, null);;
-                head.next = tail;
-                tail.pre = head;
-            }
-
-            public int getSize() {
-                return size;
-            }
-
-            public void del(Node node) {
-                //易错点 前后要看清
-                node.pre.next = node.next;
-                node.next.pre = node.pre;
-                node.next = null;
-                size--;
-
-            }
-
-            public void addRecent(Node node) {
-                Node tmp = head.next;
-                head.next = node;
-                node.next = tmp;
-                node.pre = head;
-                tmp.pre = node;
-                size++;
-
-            }
-
-            public Node removeLast() {
-                Node tmp = tail.pre;
-                del(tmp);
-                return tmp;
-            }
+        public void addNode(Node node) {
+            Node tmp = tail.pre;
+            tmp.next = node;
+            node.next = tail;
+            tail.pre = node;
+            node.pre = tmp;
+            size++;
         }
+
     }
 
 /**

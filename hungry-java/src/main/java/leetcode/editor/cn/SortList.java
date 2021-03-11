@@ -47,7 +47,7 @@ import leetcode.editor.cn.base.ListNode;
 
 import java.util.List;
 
-public class SortList{
+public class SortList {
     public static void main(String[] args) {
         Solution solution = new SortList().new Solution();
         int[] inputs = new int[]{1, 2, 3, 4, 5, 6};
@@ -61,58 +61,59 @@ public class SortList{
 
     }
     //leetcode submit region begin(Prohibit modification and deletion)
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
-class Solution {
-    public ListNode sortList(ListNode head) {
-        if (head == null) {
-            return null;
-        }
-        if (head.next == null) {
-            return head;
-        }
-        ListNode fast = head;
-        ListNode slow = head;
-        //
-        ListNode pre = head;
-        while (fast != null && fast.next != null) {
-            fast = fast.next.next;
-            pre = slow;
-            slow = slow.next;
-        }
-        ListNode mid = slow;
-        pre.next = null;
-        ListNode l1 = sortList(head);
-        ListNode l2 = sortList(mid);
-        return merge(l1, l2);
 
-   }
+    /**
+     * Definition for singly-linked list.
+     * public class ListNode {
+     * int val;
+     * ListNode next;
+     * ListNode() {}
+     * ListNode(int val) { this.val = val; }
+     * ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+     * }
+     */
+    class Solution {
+        public ListNode sortList(ListNode head) {
+            if (head == null) {
+                return null;
+            }
+            if (head.next == null) {
+                return head;
+            }
+            ListNode fast = head;
+            ListNode slow = head;
+            //
+            ListNode pre = head;
+            while (fast != null && fast.next != null) {
+                fast = fast.next.next;
+                pre = slow;
+                slow = slow.next;
+            }
+            ListNode mid = slow;
+            pre.next = null;
+            ListNode l1 = sortList(head);
+            ListNode l2 = sortList(mid);
+            return merge(l1, l2);
 
-    public ListNode merge(ListNode l1, ListNode l2) {
-        if (l1 == null) {
-            return l2;
         }
-        if (l2 == null) {
-            return l1;
+
+        public ListNode merge(ListNode l1, ListNode l2) {
+            if (l1 == null) {
+                return l2;
+            }
+            if (l2 == null) {
+                return l1;
+            }
+            if (l1.val < l2.val) {
+                l1.next = merge(l1.next, l2);
+                return l1;
+            } else {
+                l2.next = merge(l1, l2.next);
+                return l2;
+            }
         }
-        if (l1.val < l2.val) {
-            l1.next = merge(l1.next, l2);
-            return l1;
-        } else {
-            l2.next = merge(l1, l2.next);
-            return l2;
-        }
+
     }
-
-}
 
 //leetcode submit region end(Prohibit modification and deletion)
 

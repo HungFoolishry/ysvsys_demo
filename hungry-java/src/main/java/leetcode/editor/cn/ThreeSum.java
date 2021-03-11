@@ -53,26 +53,25 @@ public class ThreeSum {
     class Solution {
         public List<List<Integer>> threeSum(int[] nums) {
             List<List<Integer>> ans = new ArrayList<>();
-            if (nums.length < 3) {
+            int len = nums.length;
+            if (len < 3) {
                 return ans;
             }
             Arrays.sort(nums);
-            for (int i = 0; i < nums.length; i++) {
-                if (i > 0 && nums[i] == nums[i - 1]) {
-                    //i++在循环那层
+            for (int i = 0; i < len; i++) {
+                if (i > 0 && nums[i] == nums[i -1]) {
                     continue;
                 }
                 int l = i+1;
-                int r = nums.length - 1;
+                int r = len - 1;
                 while (l < r) {
-
                     int sum = nums[i] + nums[l] + nums[r];
                     if (sum == 0) {
                         ans.add(Arrays.asList(nums[i], nums[l], nums[r]));
-                        while (nums[l] == nums[l+1] && l+1 < r) {
+                        while (l < r && nums[l + 1] == nums[l]) {
                             l++;
                         }
-                        while (nums[r] == nums[r - 1] && r > l) {
+                        while (l < r && nums[r - 1] == nums[r]) {
                             r--;
                         }
                         l++;
@@ -82,7 +81,6 @@ public class ThreeSum {
                     } else {
                         l++;
                     }
-
                 }
             }
             return ans;

@@ -57,10 +57,7 @@ public class Subsets {
             ans.add(new ArrayList<>(tmp));
             for (int j = i; j < nums.length; j++) {
                 tmp.add(nums[j]);
-                System.out.println("add:"+nums[j]);
                 back(j + 1, nums);
-                System.out.println("remove:" + tmp.remove(tmp.size() - 1));
-
             }
 
         }

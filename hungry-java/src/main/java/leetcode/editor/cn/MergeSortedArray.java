@@ -46,23 +46,23 @@ public class MergeSortedArray {
         public void merge(int[] nums1, int m, int[] nums2, int n) {
             int i = m - 1;
             int j = n - 1;
-            int cur = m + n-1;
-            while (i >= 0 || j >=0) {
-                int tmp = 0;
+            int cur = nums1.length - 1;
+            while (cur >=0) {
                 if (i >= 0 && j >= 0) {
                     if (nums1[i] > nums2[j]) {
-                        tmp = nums1[i];
+                        nums1[cur] = nums1[i];
                         i--;
                     } else {
-                        tmp = nums2[j];
+                        nums1[cur] = nums2[j];
                         j--;
                     }
-                } else if (i >= 0) {
-                    tmp = nums1[i--];
-                } else if (j >= 0) {
-                    tmp = nums2[j--];
+                } else if (i < 0) {
+                    nums1[cur] = nums2[j];
+                    j--;
+                } else if (j < 0) {
+                    nums1[cur] = nums1[i];
+                    i--;
                 }
-                nums1[cur] = tmp;
                 cur--;
             }
 

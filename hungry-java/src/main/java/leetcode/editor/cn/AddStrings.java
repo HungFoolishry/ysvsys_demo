@@ -23,40 +23,31 @@ public class AddStrings {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        StringBuilder ans = new StringBuilder("");
-        int carry = 0;
         public String addStrings(String num1, String num2) {
+            StringBuilder ans = new StringBuilder("");
             int len1 = num1.length();
             int len2 = num2.length();
             int i = len1-1;
             int j = len2-1;
-            while (i >= 0 || j >= 0) {
-                if (i < 0) {
-                    add('0', num2.charAt(j));
-                    j--;
-                    continue;
-                }
-                if (j < 0) {
-                    add(num1.charAt(i), '0');
+            int carry = 0;
+            while (i >=0 || j >=0) {
+                int sum = carry;
+                if (i >= 0) {
+                    sum += num1.charAt(i) - '0';
                     i--;
-                    continue;
                 }
-                add(num1.charAt(i), num2.charAt(j));
-                i--;
-                j--;
+                if (j >= 0) {
+                    sum += num2.charAt(j) - '0';
+                    j--;
+                }
+                ans.append(sum % 10);
+                carry = sum / 10;
+
             }
             if (carry > 0) {
                 ans.append(carry);
             }
             return ans.reverse().toString();
-        }
-
-        public void add(char char1, char char2) {
-            int num1 = char1 - '0';
-            int num2 = char2 - '0';
-            int sum = num1 + num2+carry;
-            carry = sum / 10;
-            ans.append(sum % 10);
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
