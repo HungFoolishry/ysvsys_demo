@@ -39,31 +39,30 @@ public class GenerateParentheses {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        List<String> ans = new ArrayList<>();
+        List<String> ans;
         int max;
-
         public List<String> generateParenthesis(int n) {
+            StringBuilder sb = new StringBuilder("");
             max = n;
-            back(new StringBuffer(""), 0, 0);
+            ans = new ArrayList<>();
+            back(sb, 0, 0);
             return ans;
         }
 
-        public void back(StringBuffer tmp, int open, int close) {
-            if (tmp.length() == max * 2) {
+        public void back(StringBuilder tmp, int open, int close) {
+            if (open == max && close == max) {
                 ans.add(tmp.toString());
-                return;
             }
             if (open < max) {
                 tmp.append('(');
-                back(tmp, open+1, close);
+                back(tmp, open + 1, close);
                 tmp.deleteCharAt(tmp.length() - 1);
             }
-            if (close < open) {
+            if (open > close && close < max) {
                 tmp.append(')');
                 back(tmp, open, close+1);
                 tmp.deleteCharAt(tmp.length() - 1);
             }
-
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

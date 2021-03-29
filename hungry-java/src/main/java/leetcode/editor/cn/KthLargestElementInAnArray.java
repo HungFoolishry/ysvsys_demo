@@ -28,32 +28,30 @@ public class KthLargestElementInAnArray {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int findKthLargest(int[] nums, int k) {
-            sort(nums, 0, nums.length - 1, k);
+            qSort(nums, 0, nums.length-1, k);
             return nums[nums.length - k];
         }
 
-        public void sort(int[] nums, int l, int r, int k) {
-            if (l > r) {
+        public void qSort(int[] nums, int l, int r, int k) {
+            if (l >= r) {
                 return;
             }
             int mid = partition(nums, l, r);
             if (mid == nums.length - k) {
                 return;
-            }
-            if (mid < nums.length - k) {
-                sort(nums, mid + 1, r, k);
+            } else if (mid < nums.length - k) {
+                qSort(nums, mid + 1, r, k);
             } else {
-                sort(nums, l, mid - 1, k);
+                qSort(nums, l, mid - 1, k);
             }
         }
 
         public int partition(int[] nums, int l, int r) {
-            int rInt = nums[r];
-            // 指向比r 大的第一个数字
+            int intR = nums[r];
             int smallIndex = l;
             for (int i = l; i < r; i++) {
-                if (nums[i] < rInt) {
-                    swap(nums, smallIndex, i);
+                if (nums[i] < intR) {
+                    swap(nums, i, smallIndex);
                     smallIndex++;
                 }
             }
@@ -65,6 +63,7 @@ public class KthLargestElementInAnArray {
             int tmp = nums[i];
             nums[i] = nums[j];
             nums[j] = tmp;
+
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

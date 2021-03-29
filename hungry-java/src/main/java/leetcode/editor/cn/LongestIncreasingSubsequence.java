@@ -63,6 +63,7 @@ public class LongestIncreasingSubsequence {
             int n = nums.length;
             int[] dp = new int[n];
             Arrays.fill(dp, 1);
+            //i 只和之前的每个j比，如果大于，则可以将之前的dp[j] +1
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < i; j++) {
                     if (nums[i] > nums[j]) {

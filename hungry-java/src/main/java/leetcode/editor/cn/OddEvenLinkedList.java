@@ -27,6 +27,8 @@ package leetcode.editor.cn;
 
 import leetcode.editor.cn.base.ListNode;
 
+import java.util.List;
+
 public class OddEvenLinkedList {
     public static void main(String[] args) {
         Solution solution = new OddEvenLinkedList().new Solution();
@@ -46,34 +48,26 @@ public class OddEvenLinkedList {
     class Solution {
         public ListNode oddEvenList(ListNode head) {
             if (head == null) {
-                return head;
+                return null;
             }
             ListNode oddHead = head;
             ListNode evenHead = head.next;
-            ListNode oddTmp = oddHead;
-            ListNode evenTmp = evenHead;
-            ListNode cur= head;
+            ListNode oddCur = head;
+            ListNode evenCur = head.next;
+            ListNode cur = head;
+            ListNode lastOdd = oddCur;
             while (cur != null && cur.next != null) {
-                 cur = cur.next.next;
-                 oddTmp.next = cur;
-                 oddTmp = cur;
+                cur = cur.next.next;
+                oddCur.next = cur;
+                oddCur = cur;
                 if (cur != null) {
-                    evenTmp.next = cur.next;
-                    evenTmp = cur.next;
+                    lastOdd = cur;
+                    evenCur.next = cur.next;
+                    evenCur = cur.next;
                 }
-
             }
-            merge(oddHead,evenHead);
+            lastOdd.next = evenHead;
             return oddHead;
-
-        }
-
-        public void merge(ListNode node1, ListNode node2) {
-            while (node1.next != null) {
-                node1 = node1.next;
-            }
-            node1.next = node2;
-
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

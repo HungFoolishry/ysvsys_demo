@@ -7,7 +7,7 @@ package lee.tree;
  * @date 2021-01-25 14:52
  **/
 public class Connect {
-    class Node {
+    public class Node {
         public int val;
         public Node left;
         public Node right;

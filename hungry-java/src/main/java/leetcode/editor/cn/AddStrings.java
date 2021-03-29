@@ -19,6 +19,7 @@ package leetcode.editor.cn;
 public class AddStrings {
     public static void main(String[] args) {
         Solution solution = new AddStrings().new Solution();
+        System.out.println(solution.addStrings("1b","2a"));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
@@ -31,23 +32,35 @@ public class AddStrings {
             int j = len2-1;
             int carry = 0;
             while (i >=0 || j >=0) {
-                int sum = carry;
-                if (i >= 0) {
-                    sum += num1.charAt(i) - '0';
-                    i--;
-                }
-                if (j >= 0) {
-                    sum += num2.charAt(j) - '0';
-                    j--;
-                }
-                ans.append(sum % 10);
-                carry = sum / 10;
-
+                int x = i >= 0 ? getInt(num1.charAt(i)) : 0;
+                int y = i >= 0 ? getInt(num2.charAt(j)) : 0;
+                int tmp = x + y + carry;
+                ans.append(getChar((tmp) % 36));
+                carry = tmp / 36;
+                i--;
+                j--;
             }
             if (carry > 0) {
-                ans.append(carry);
+                ans.append(getChar(carry));
             }
             return ans.reverse().toString();
+        }
+
+        public int getInt(char ch) {
+            if (ch >= '0' && ch <= '9') {
+                return ch - '0';
+            } else {
+                return ch - 'a' + 10;
+            }
+        }
+
+        public char getChar(int i) {
+            if (i >= 0 && i <= 9) {
+                return (char) ('0' + i);
+            } else {
+                return (char) (i - 10 + 'a');
+            }
+
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

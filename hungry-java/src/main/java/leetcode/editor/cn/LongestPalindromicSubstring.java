@@ -59,12 +59,12 @@ public class LongestPalindromicSubstring {
             }
             int start = 0;
             int maxLen = 1;
-            //  只需要n，并且dp
+            //  只需要n，并且dp i j 的概念是 i-j 字符串是否是回文
             int[][] dp = new int[n][n];
             for (int j = 0; j < n; j++) {
                 for (int i = 0; i <= j; i++) {
                     if (s.charAt(i) == s.charAt(j)) {
-                        if (j - i <= 2) {
+                        if (j - i + 1 <= 3) {
                             dp[i][j] = 1;
                         } else {
                             dp[i][j] = dp[i + 1][j - 1];
@@ -72,13 +72,13 @@ public class LongestPalindromicSubstring {
                     } else {
                         dp[i][j] = 0;
                     }
-                    if (dp[i][j] ==1 && j - i + 1 > maxLen) {
+                    if (dp[i][j] == 1 && j - i + 1 > maxLen) {
                         start = i;
                         maxLen = j - i + 1;
                     }
-
                 }
             }
+
             return s.substring(start, start + maxLen);
 
         }

@@ -75,11 +75,11 @@ public class ImplementQueueUsingStacks {
         /**
          * Initialize your data structure here.
          */
-        private Deque<Integer> stack1;
-        private Deque<Integer> stack2;
+        private Deque<Integer> inStack;
+        private Deque<Integer> outStack;
         public MyQueue() {
-            stack1 = new LinkedList<>();
-            stack2 = new LinkedList<>();
+            inStack = new LinkedList<>();
+            outStack = new LinkedList<>();
 
         }
 
@@ -87,7 +87,7 @@ public class ImplementQueueUsingStacks {
          * Push element x to the back of queue.
          */
         public void push(int x) {
-            stack1.push(x);
+            inStack.push(x);
 
         }
 
@@ -95,31 +95,31 @@ public class ImplementQueueUsingStacks {
          * Removes the element from in front of queue and returns that element.
          */
         public int pop() {
-            if (stack2.isEmpty()) {
-                while (!stack1.isEmpty()) {
-                    stack2.push(stack1.pop());
+            if (outStack.isEmpty()) {
+                while (!inStack.isEmpty()) {
+                    outStack.push(inStack.pop());
                 }
             }
-            return stack2.pop();
+            return outStack.pop();
 
         }
         /**
          * Get the front element.
          */
         public int peek() {
-            if (stack2.isEmpty()) {
-                while (!stack1.isEmpty()) {
-                    stack2.push(stack1.pop());
+            if (outStack.isEmpty()) {
+                while (!inStack.isEmpty()) {
+                    outStack.push(inStack.pop());
                 }
             }
-            return stack2.peek();
+            return outStack.peek();
         }
 
         /**
          * Returns whether the queue is empty.
          */
         public boolean empty() {
-            return stack2.isEmpty() && stack1.isEmpty();
+            return outStack.isEmpty() && inStack.isEmpty();
         }
     }
 

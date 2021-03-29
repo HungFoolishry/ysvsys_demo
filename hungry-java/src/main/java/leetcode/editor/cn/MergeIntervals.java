@@ -1,4 +1,5 @@
-//以数组 intervals 表示若干个区间的集合，其中单个区间为 intervals[i] = [starti, endi] 。
+//以数组 intervals 表示若干个区间的集合，
+// 其中单个区间为 intervals[i] = [starti, endi] 。
 // 请你合并所有重叠的区间，并返回一个不重叠的区间数组，该数组需恰好覆盖输入中的所有区间。
 //
 //
@@ -48,18 +49,16 @@ public class MergeIntervals {
             List<int[]> ans = new ArrayList<>();
             Arrays.sort(intervals, (a,b)->a[0]-b[0]);
             int m = intervals.length;
-            int[] pre = intervals[0];
+            int[] merged = intervals[0];
             for (int i = 1; i < m; i++) {
-                if (pre[1] >= intervals[i][0]) {
-                    if (pre[1] < intervals[i][1]) {
-                        pre[1] = intervals[i][1];
-                    }
+                if (merged[1] >= intervals[i][0]) {
+                    merged[1] = Math.max(intervals[i][1], merged[1]);
                 } else {
-                    ans.add(pre);
-                    pre = intervals[i];
+                    ans.add(merged);
+                    merged = intervals[i];
                 }
             }
-            ans.add(pre);
+            ans.add(merged);
             int[][] intervalsAns = new int[ans.size()][2];
             for (int i = 0; i < ans.size(); i++) {
                 intervalsAns[i] = ans.get(i);

@@ -1,7 +1,7 @@
-//升序排列的整数数组 nums 在预先未知的某个点上进行了旋转（例如， [0,1,2,4,5,6,7] 经旋转后可能变为 [4,5,6,7,0,1,2] ）。
+//升序排列的整数数组 nums 在预先未知的某个点上进行了旋转（例如, [0,1,2,4,5,6,7] 经旋转后可能变为 [4,5,6,7,0,1,2] ）。
 //
 //
-// 请你在数组中搜索 target ，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。
+// 请你在数组中搜索 target ,如果数组中存在这个目标值,则返回它的索引,否则返回 -1 。
 //
 //
 //
@@ -45,7 +45,7 @@ package leetcode.editor.cn;
 public class SearchInRotatedSortedArray {
     public static void main(String[] args) {
         Solution solution = new SearchInRotatedSortedArray().new Solution();
-        System.out.println(solution.search(new int[] {3,1}, 1));
+        System.out.println(solution.search(new int[] {6,6,6,6,6,7,1,2,3,4,5,6,6,6,6,6}, 3));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
@@ -54,26 +54,26 @@ public class SearchInRotatedSortedArray {
             int len = nums.length;
             int l = 0;
             int r = len - 1;
-            while (l <= r) {
-                int mid = l + (r - l) / 2;
-                if (nums[mid] == target) {
-                    return mid;
-                }
-                // mid >= 0
-                if (nums[0] <= nums[mid]) {
-                    if (target < nums[mid] && target >= nums[l]) {
-                        r = mid - 1;
-                    } else {
-                        l = mid + 1;
+                while(l<=r){
+                    int mid = l + (r-l)/2;
+                    if(nums[mid]==target){
+                        return mid;
                     }
-                } else {
-                    if (target > nums[mid] && target <= nums[r]) {
-                        l = mid + 1;
-                    } else {
-                        r = mid - 1;
+                    if(nums[0]>nums[mid]){
+                        if(target>nums[mid]&&target<=nums[r]){
+                            l = mid +1;
+                        }else{
+                            r = mid-1;
+                        }
+                    }else{
+                        if(target >= nums[l] && target < nums[mid]){
+                            r = mid-1;
+                        }else{
+                            l = mid +1;
+                        }
                     }
+
                 }
-            }
             return -1;
 
         }

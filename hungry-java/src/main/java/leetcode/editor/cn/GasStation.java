@@ -63,8 +63,8 @@ public class GasStation {
     class Solution {
         public int canCompleteCircuit(int[] gas, int[] cost) {
             int len = gas.length;
-            int left = 0;
             int min = Integer.MAX_VALUE;
+            int left = 0;
             int start = 0;
             for (int i = 0; i < len; i++) {
                 left += gas[i] - cost[i];
@@ -72,13 +72,11 @@ public class GasStation {
                     start = i;
                     min = left;
                 }
-
             }
             if (left >= 0) {
-                return start+1;
+                return (start + 1)% len;
             }
             return -1;
-
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

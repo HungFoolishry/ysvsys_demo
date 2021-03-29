@@ -41,6 +41,8 @@
 
 package leetcode.editor.cn;
 
+import java.util.Arrays;
+
 public class FirstMissingPositive {
     public static void main(String[] args) {
         Solution solution = new FirstMissingPositive().new Solution();
@@ -49,20 +51,18 @@ public class FirstMissingPositive {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int firstMissingPositive(int[] nums) {
-            int len = nums.length;
-            for (int i = 0; i < len; i++) {
-                //先判断num[i]的范围在 1 -len，nums[3-1] = 3 , 本数值-1 是index 然后index 中的数= 本数值 合法，否则要交换
-                while (nums[i] > 0 && nums[i] < len && nums[nums[i] - 1] != nums[i]) {
-                    swap(nums, i, nums[i] - 1);
+            int n = nums.length;
+            for (int i = 0; i < n; i++) {
+                while (nums[i] >0 && nums[i] < n && nums[nums[i] - 1] != nums[i]) {
+                    swap(nums, nums[i] - 1, i);
                 }
-
             }
-            for (int i = 0; i < len; i++) {
-                if (nums[i] != i + 1) {
+            for (int i = 0; i < n; i++) {
+                if (i + 1 != nums[i]) {
                     return i + 1;
                 }
             }
-            return len+1;
+            return n + 1;
 
         }
 
@@ -70,8 +70,13 @@ public class FirstMissingPositive {
             int tmp = nums[i];
             nums[i] = nums[j];
             nums[j] = tmp;
+            System.out.println(Arrays.toString(nums));
         }
     }
+    // [-1,4,2,1,9,10]
+    // [-1, 1, 2, 4, 9, 10]
+    // [1, -1, 2, 4, 9, 10]
+    // [1, 2, -1, 4, 9, 10]
 //leetcode submit region end(Prohibit modification and deletion)
 
 }

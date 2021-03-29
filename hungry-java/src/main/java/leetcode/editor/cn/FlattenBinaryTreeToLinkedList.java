@@ -76,15 +76,14 @@ public class FlattenBinaryTreeToLinkedList {
             }
             flatten(root.left);
             flatten(root.right);
-            TreeNode left = root.left;
-            TreeNode right = root.right;
+            TreeNode rightTmp = root.right ;
+            root.right = root.left;
             root.left = null;
-            root.right = left;
             TreeNode cur = root;
             while (cur.right != null) {
                 cur = cur.right;
             }
-            cur.right = right;
+            cur.right = rightTmp;
 
         }
 

@@ -75,14 +75,13 @@ public class SortList {
     class Solution {
         public ListNode sortList(ListNode head) {
             if (head == null) {
-                return null;
+                return head;
             }
             if (head.next == null) {
                 return head;
             }
             ListNode fast = head;
             ListNode slow = head;
-            //
             ListNode pre = head;
             while (fast != null && fast.next != null) {
                 fast = fast.next.next;
@@ -91,27 +90,31 @@ public class SortList {
             }
             ListNode mid = slow;
             pre.next = null;
-            ListNode l1 = sortList(head);
-            ListNode l2 = sortList(mid);
-            return merge(l1, l2);
+            ListNode node1 = sortList(head);
+            ListNode node2 = sortList(mid);
+            return merge(node1, node2);
 
         }
 
-        public ListNode merge(ListNode l1, ListNode l2) {
-            if (l1 == null) {
-                return l2;
+        public ListNode merge(ListNode node1, ListNode node2) {
+            if (node1 == null && node2 == null) {
+                return null;
             }
-            if (l2 == null) {
-                return l1;
+            if (node1 == null) {
+                return node2;
             }
-            if (l1.val < l2.val) {
-                l1.next = merge(l1.next, l2);
-                return l1;
+            if (node2 == null) {
+                return node1;
+            }
+            if (node1.val < node2.val) {
+                node1.next = merge(node1.next, node2);
+                return node1;
             } else {
-                l2.next = merge(l1, l2.next);
-                return l2;
+                node2.next = merge(node2.next, node1);
+                return node2;
             }
         }
+
 
     }
 

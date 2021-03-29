@@ -13,52 +13,27 @@ import java.util.Queue;
  * @date 2020-10-15 23:41
  **/
 public class MaximumSwap {
-        public static int maximumSwap(int num) {
-            LinkedList<Integer> nums = new LinkedList<>();
-            Integer input = num;
-            while (!input.equals(0)) {
-                nums.add(0, input % 10);
-                input = input / 10;
-            }
-            int result = 0;
-            boolean hasChanged = Boolean.FALSE;
-            while (!nums.isEmpty()) {
-                Integer maxInt = nums.stream().max(Comparator.comparing(Integer::valueOf)).get();
-                Integer head = nums.removeFirst();
-                if (!hasChanged) {
-                    if (!head.equals(maxInt)) {
-                        int index = nums.lastIndexOf(maxInt);
-                        nums.set(index, head);
-                        hasChanged = Boolean.TRUE;
-                        head = maxInt;
-                    }
-                }
-
-                result = result * 10 + head;
-            }
-            return result;
-
+    public static int maximumSwap(int num) {
+        char[] A = Integer.toString(num).toCharArray();
+        int[] last = new int[10];
+        // 找到各位数字最后一次出现的下标
+        for (int i = 0; i < A.length; i++) {
+            last[A[i] - '0'] = i;
         }
-    class Solution {
-        public int maximumSwap(int num) {
-            char[] A = Integer.toString(num).toCharArray();
-            int[] last = new int[10];
-            for (int i = 0; i < A.length; i++) {
-                last[A[i] - '0'] = i;
-            }
 
-            for (int i = 0; i < A.length; i++) {
-                for (int d = 9; d > A[i] - '0'; d--) {
-                    if (last[d] > i) {
-                        char tmp = A[i];
-                        A[i] = A[last[d]];
-                        A[last[d]] = tmp;
-                        return Integer.valueOf(new String(A));
-                    }
+        for (int i = 0; i < A.length; i++) {
+            //从左往右遍历数字，如果右边有大的数字直接交换后返回
+            for (int d = 9; d > A[i] - '0'; d--) {
+                //保证在右边
+                if (last[d] > i) {
+                    char tmp = A[i];
+                    A[i] = A[last[d]];
+                    A[last[d]] = tmp;
+                    return Integer.valueOf(new String(A));
                 }
             }
-            return num;
         }
+        return num;
     }
 
     public static void main(String[] args) {

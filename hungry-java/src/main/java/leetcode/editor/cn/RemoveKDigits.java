@@ -59,7 +59,7 @@ public class RemoveKDigits {
                     if (stack.peek() > num.charAt(i)&& k> 0) {
                         stack.pop();
                         k--;
-                        //核心步骤，不许循环去找前面比自己大的数字，因为排前面才影响最大
+                        //核心步骤，循环去找前面比自己大的数字，因为排前面才影响最大
                         while (!stack.isEmpty() && stack.peek() > num.charAt(i) && k > 0) {
                             stack.pop();
                             k--;

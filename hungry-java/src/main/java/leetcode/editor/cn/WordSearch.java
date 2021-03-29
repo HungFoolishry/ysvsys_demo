@@ -70,6 +70,7 @@ public class WordSearch {
             }
             if (board[i][j] == word.charAt(index) && index == word.length() - 1) {
                 ans = true;
+                return;
             }
             path[i][j] = 1;
             index++;
