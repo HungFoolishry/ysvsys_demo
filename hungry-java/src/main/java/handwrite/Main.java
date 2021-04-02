@@ -15,9 +15,9 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Main {
 
     private int max;
-    private volatile int ticketsNum;
-    private Lock lock = new ReentrantLock();
-    private Condition waitCondition = lock.newCondition();
+    private volatile int ticketsNum=1;
+    private final Lock lock = new ReentrantLock();
+    private final Condition waitCondition = lock.newCondition();
     Random rand = new Random();
 
     public Main(int max) {
@@ -28,20 +28,20 @@ public class Main {
         for (int i = 0; i < max; ) {
             lock.lock();
             try{
-                if (ticketsNum<max && ((ticketsNum % 2) == targetNum)) {
-                    ticketsNum++;
+                if (ticketsNum<=max && ((ticketsNum % 2) == targetNum)) {
                     i++;
                     System.out.print(line+ticketsNum+"\n");
+                    ticketsNum++;
+                    waitCondition.signalAll();
                     try {
                         waitCondition.await(rand.nextInt(200)+100, TimeUnit.MILLISECONDS);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-                if (ticketsNum >= max) {
+                if (ticketsNum > max) {
                     break;
                 }
-                waitCondition.signalAll();
             }finally {
                 lock.unlock();
             }
@@ -53,18 +53,18 @@ public class Main {
         Main loopThread = new Main(30);
 
         new Thread(() -> {
-            loopThread.print("window 1 sell ticket num ", 0);
+            loopThread.print("window 1 sell ticket num ", 1);
         }, "window1").start();
 
         new Thread(() -> {
-            loopThread.print("window 2 sell ticket num ", 1);
+            loopThread.print("window 2 sell ticket num ", 0);
         }, "window2").start();
 
         new Thread(() -> {
-            loopThread.print("window 3 sell ticket num", 0);
+            loopThread.print("window 3 sell ticket num ", 1);
         }, "window3").start();
         new Thread(() -> {
-            loopThread.print("window 4 sell ticket num", 0);
+            loopThread.print("window 4 sell ticket num ", 1);
         }, "window4").start();
     }
 }
